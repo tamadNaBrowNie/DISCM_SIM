@@ -2,24 +2,22 @@
 #pragma once
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-enum type
-{
-    VECTOR,
-    MOVE
-};
+
 class Point
 {
 private:
-    glm::vec2 translate, pos;
-    glm::vec2 change(float, float);
+    glm::vec2 translate = {-1,0};
+    glm::vec3 pos;
     glm::vec2 move();
 
+
 public:
-    Point(glm::vec2, type);
-    Point(float, float, type);
-    void set_translate(float, float, type);
-    void set_translate(glm::vec2, type);
+    glm::vec3 hit();
+    Point(glm::vec2 pos, float theta);
+    Point(float x , float y,float speed, float theta );
+    Point(glm::vec4 data);
+    void set_translate(glm::vec2, float);
     void get_translate();
-    glm::vec2 get_translate(type);
-    glm::vec2 get_pos();
+    
+    glm::vec3 get_pos();
 };

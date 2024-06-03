@@ -60,6 +60,23 @@
     "fstream": "cpp",
     "sstream": "cpp",
     "xstring": "cpp",
-    "iosfwd": "cpp"
-  }
+    "iosfwd": "cpp",
+    "array": "cpp",
+    "functional": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp",
+    "*.tcc": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "iterator": "cpp",
+    "memory_resource": "cpp",
+    "optional": "cpp",
+    "streambuf": "cpp"
+  },
+  "cmake.configureOnOpen": false
 }
