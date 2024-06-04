@@ -1,8 +1,8 @@
 
 #pragma once
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
+// #include "include/glad/glad.h"
+#include "include/glm/glm.hpp"
+#include "include/GLFW/glfw3.h"
 class Point
 {
 private:
@@ -15,6 +15,7 @@ public:
     glm::vec3 hit();
     Point(glm::vec2 pos, float theta);
     Point(float x , float y,float speed, float theta );
+    void collide();
     Point(glm::vec4 data);
     void set_translate(glm::vec2, float);
     void get_translate();
