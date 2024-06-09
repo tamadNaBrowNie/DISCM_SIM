@@ -7,6 +7,12 @@ ShaderClass::ShaderClass(std::string path, GLenum type)
 {
 	// TODO:speed this up. maybe rewrite.
 	// TODO: Error Checking
+
+	std::ifstream shaderFile(path);
+    if (!shaderFile.is_open()) {
+        std::cerr << "Failed to open shader file: " << path << std::endl;
+        return;
+    }
 	std::fstream vertSrc(path);
 	std::stringstream vertBuff;
 	vertBuff << vertSrc.rdbuf();
@@ -17,6 +23,14 @@ ShaderClass::ShaderClass(std::string path, GLenum type)
 	this->shader = glCreateShader(type);
 	glShaderSource(this->shader, 1, &v, NULL);
 	glCompileShader(this->shader);
+	// Check for errors
+	 GLint success;
+    glGetShaderiv(this->shader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(this->shader, 512, NULL, infoLog);
+        std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
 }
 GLuint ShaderClass::getShader()
 {
