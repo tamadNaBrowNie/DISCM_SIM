@@ -9,7 +9,7 @@ private:
     // glm::vec2 velocity; // Velocity vector
     glm::vec3 velo = {-1, 0,0}; // Translation vector (for future use)
 
-    glm::vec2 move(); // Method to update the position based on 2city
+    glm::vec3 move(); // Method to update the position based on 2city
 
 public:
     // Constructors

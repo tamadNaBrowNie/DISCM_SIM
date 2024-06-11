@@ -25,3 +25,6 @@ void Point::collide(){
         this->pos.y = -this->pos.y ;
     
 }
+glm::vec3 Point::move(){
+
+}

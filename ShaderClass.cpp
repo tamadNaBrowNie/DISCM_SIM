@@ -1,6 +1,7 @@
 
 #include "ShaderClass.h"
-
+#include <iostream>
+// CLASS FOR LOADING SHADERS
 // gets uniform location
 
 ShaderClass::ShaderClass(std::string path, GLenum type)
