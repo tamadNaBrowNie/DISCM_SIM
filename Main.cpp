@@ -40,6 +40,7 @@ int main(int argc, char const *argv[])
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
+        // glDrawArraysInstanced(GL); //TODO: try to make it instanced
         glfwSwapBuffers(window);
         
     }
