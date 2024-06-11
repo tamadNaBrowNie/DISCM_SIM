@@ -5,7 +5,17 @@ void Program::create()
     glAttachShader(this->prog, vert.getShader());
     glAttachShader(this->prog, frag.getShader());
     glLinkProgram(this->prog);
+
+    // Check for linking errors
+    GLint success;
+    glGetProgramiv(this->prog, GL_LINK_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetProgramInfoLog(this->prog, 512, NULL, infoLog);
+        std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+    }
 }
+
 Program::Program(std::string v_path, std::string f_path) : vert(v_path, GL_VERTEX_SHADER), frag(f_path, GL_FRAGMENT_SHADER)
 {
     create();
