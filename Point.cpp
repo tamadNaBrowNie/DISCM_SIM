@@ -8,10 +8,10 @@
 #define Y_MAX 720
 
 // Constructor with position, speed, and angle
-Point::Point(float x, float y, float s, float theta) {
+Point::Point(float x, float y, float speed, float theta) {
     this->pos = glm::vec3(x, y, 0);
     float radians = glm::radians(theta);
-    this->velocity = glm::vec2(s * cos(radians), s * sin(radians));
+    this->translate = glm::vec3(cos(radians), sin(radians),0);
 }
 
 // Constructor with position and angle
