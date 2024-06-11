@@ -8,7 +8,8 @@ int main(int argc, char const *argv[])
         // positions
         -0.5f, -0.5f, 0.0f,
          0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
+         0.0f,  0.5f, 0.0f,
+         0.f,0.f,-0.5f,0.f
     };
     GLFWwindow* window;
 
