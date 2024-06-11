@@ -4,9 +4,10 @@
             "name": "windows-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "include",
+                "${workspaceFolder}/include",
                 "${workspaceFolder}/include/glm/gtx",
-                "${workspaceFolder}/include/glm/ext"
+                "${workspaceFolder}/include/glm/ext",
+                "${workspaceFolder}/include/glad"
             ],
             "compilerPath": "gcc",
             "cStandard": "c99",

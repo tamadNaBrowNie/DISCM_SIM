@@ -1,10 +1,10 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
-
+#include "ShaderClass.h"  
 #include <string>
-#include <GL/glew.h>
-#include "ShaderClass.h"  // Ensure this file is correctly defined and available
-
+#include "include/GLFW/glfw3.h"
+// Ensure this file is correctly defined and available
+// CLASS THAT RUNS SHADERS
 class Program {
 private:
     GLuint prog;          // Program ID
