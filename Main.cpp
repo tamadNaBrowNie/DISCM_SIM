@@ -1,5 +1,8 @@
-#include "Point.h"
+
 #include "Program.h"
+#include "Point.h"
+
+
 
 int main(int argc, char const *argv[])
 {
@@ -11,7 +14,7 @@ int main(int argc, char const *argv[])
          0.0f,  0.5f, 0.0f,
          0.f,0.f,-0.5f,0.f
     };
-    GLFWwindow* window;
+    GLFWwindow* window = nullptr;
 
     if (!glfwInit()||!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) )
         return -1;
@@ -21,13 +24,13 @@ int main(int argc, char const *argv[])
     glfwMakeContextCurrent(window);
     
     prog.use();
-    GLuint VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    GLuint* VBO, *VAO;
+    glGenVertexArrays(1, VAO);
+    glGenBuffers(1, VBO);
 
-    glBindVertexArray(VAO);
+    glBindVertexArray(*VAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, *VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
@@ -41,11 +44,14 @@ int main(int argc, char const *argv[])
     {
         glClear(GL_COLOR_BUFFER_BIT);
         // glDrawArraysInstanced(GL); //TODO: try to make it instanced
+        prog.use();
+        glBindVertexArray(*VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
         glfwSwapBuffers(window);
         
     }
-     glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+     glDeleteVertexArrays(1, VAO);
+    glDeleteBuffers(1, VBO);
 
     glfwTerminate();
     return 0;
