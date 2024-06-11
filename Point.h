@@ -6,10 +6,10 @@
 class Point {
 private:
     glm::vec3 pos; // Position of the point
-    glm::vec2 velocity; // Velocity vector
-    glm::vec2 translate = {-1, 0}; // Translation vector (for future use)
+    // glm::vec2 velocity; // Velocity vector
+    glm::vec3 velo = {-1, 0,0}; // Translation vector (for future use)
 
-    glm::vec2 move(); // Method to update the position based on velocity
+    glm::vec2 move(); // Method to update the position based on 2city
 
 public:
     // Constructors
@@ -19,6 +19,8 @@ public:
 
     // Method to handle collision with canvas borders
     void collide();
+
+    void NewFunction();
 
     // Getter for position
     glm::vec3 get_pos() const;
