@@ -3,11 +3,10 @@
         {
             "name": "windows-gcc-x64",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/include",
-                "${workspaceFolder}/include/glm/gtx",
+                "./",
+                "./include",
                 "${workspaceFolder}/include/glm/ext",
-                "${workspaceFolder}/include/glad"
+                "${workspaceFolder}/include/KHR"
             ],
             "compilerPath": "gcc",
             "cStandard": "c99",

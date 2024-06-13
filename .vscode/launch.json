@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/shawn/Desktop/Class",
-      "program": "c:/Users/shawn/Desktop/Class/build/Debug/outDebug",
+      "cwd": "../Class",
+      "program": "../build/Debug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
