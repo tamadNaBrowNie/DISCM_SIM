@@ -5,13 +5,15 @@
 
 class Point {
 private:
+    float theta = 0.f;
     glm::vec3 pos; // Position of the point
     // glm::vec2 velocity; // Velocity vector
     glm::vec3 velo = {-1, 0,0}; // Translation vector (for future use)
 
-    glm::vec3 move(); // Method to update the position based on 2city
+    
 
 public:
+    glm::vec3 move(); // Method to update the position based on 2city
     // Constructors
     Point(glm::vec2 pos, float theta);
     Point(float x, float y, float speed, float theta);
@@ -20,7 +22,7 @@ public:
     // Method to handle collision with canvas borders
     void collide();
 
-    void NewFunction();
+    // void NewFunction();
 
     // Getter for position
     glm::vec3 get_pos() const;
