@@ -1,7 +1,7 @@
 #pragma once
 
-#include "include/glm/glm.hpp"
-#include "include/GLFW/glfw3.h"
+#include <glm/glm.hpp>
+#include <GLFW/glfw3.h>
 
 class Point
 {
