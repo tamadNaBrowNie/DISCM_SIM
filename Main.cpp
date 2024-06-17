@@ -2,6 +2,7 @@
 #include "Program.h"
 #include "Point.h"
 #include <vector>
+#include <iostream>
 // Keybinds for actions
 enum Acts
 {
@@ -45,11 +46,18 @@ int main(int argc, char const *argv[])
         0.f, 0.f, -0.5f, 0.f};
     GLFWwindow *window = nullptr;
 
-    if (!glfwInit() || !gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!glfwInit() )
+    {
+        std::cout << "glfw failed";
         return -1;
-    else
-        window = glfwCreateWindow(1280, 720, "DISCM SIM", NULL, NULL);
-    Program prog = Program("foo", "frag.glsl");
+    }
+   if (gladLoadGL())
+   {
+       std::cout << "glad failed";
+       return -1;
+   }
+    window = glfwCreateWindow(1280, 720, "DISCM SIM", NULL, NULL);
+    Program prog = Program("foo", "frag.glsl");//TODO now create a shader file
     if (!window)
     {
         glfwTerminate();
