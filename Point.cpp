@@ -1,4 +1,5 @@
 #include "Point.h"
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 // #include "include/standalone_math.h"
@@ -21,7 +22,4 @@ void Point::collide(float X_MAX, float Y_MAX)
         this->pos.x = -this->pos.x;
     if (this->pos.y <= 0 || this->pos.y >= Y_MAX)
         this->pos.y = -this->pos.y;
-}
-glm::vec3 Point::move()
-{
 }

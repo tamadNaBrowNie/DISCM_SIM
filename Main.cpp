@@ -44,7 +44,9 @@ int main(int argc, char const *argv[])
 
     constexpr float X_MAX = 1280.f;
     constexpr float Y_MAX = 720.f;
-    glm::mat4 cam = glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity(); 
+    glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);

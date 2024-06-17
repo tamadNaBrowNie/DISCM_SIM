@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "msvc-x64",
+      "includePath": [
+        "./",
+        "./include"
+      ],
+      "compilerPath": "gcc",
+      "cStandard": "c99",
+      "cppStandard": "c++20",
+      "intelliSenseMode": "windows-msvc-x64",
+      "compilerArgs": [
+        ""
+      ]
+    }
+  ],
+  "version": 4
+}

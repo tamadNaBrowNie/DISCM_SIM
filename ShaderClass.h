@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <string>
 // TODO: Rewrite to a better structure.
 class ShaderClass
 {
