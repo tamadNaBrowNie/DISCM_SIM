@@ -33,6 +33,11 @@ ShaderClass::ShaderClass(std::string path, GLenum type)
         std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 }
+
+ShaderClass::ShaderClass()
+{
+}
+
 GLuint ShaderClass::getShader()
 {
 	return this->shader;
