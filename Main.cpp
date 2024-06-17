@@ -9,12 +9,13 @@ enum Acts
     DATA = GLFW_KEY_ESCAPE,
     ADD = GLFW_KEY_SPACE
 };
-
+// Screen
 constexpr float X_MAX = 1280.f;
 constexpr float Y_MAX = 720.f;
-float x_pos = 0, y_pos = 0, s = 0, deg = 0;
+
 void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
+    float x_pos = 0, y_pos = 0, s = 0, deg = 0;
     // TODO: MUTEX THIS
     std::vector<Point> *arr = (std::vector<Point> *)glfwGetWindowUserPointer(window);
     switch (key)
