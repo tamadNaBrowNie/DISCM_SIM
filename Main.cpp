@@ -2,24 +2,35 @@
 #include "Program.h"
 #include "Point.h"
 #include <vector>
+// Keybinds for actions
+enum Acts
+{
+    KILL = GLFW_KEY_ENTER,
+    DATA = GLFW_KEY_ESCAPE,
+    ADD = GLFW_KEY_SPACE
+};
+
+constexpr float X_MAX = 1280.f;
+constexpr float Y_MAX = 720.f;
 float x_pos = 0, y_pos = 0, s = 0, deg = 0;
 void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
+    // TODO: MUTEX THIS
     std::vector<Point> *arr = (std::vector<Point> *)glfwGetWindowUserPointer(window);
     switch (key)
     {
-    case GLFW_KEY_ESCAPE:
-        // TODO: This is where we handle user inputs for balls
+    case Acts::DATA:
+        // TODO: HANDLE BALL INPUT
         break;
-    case GLFW_KEY_ENTER:
-
+    case Acts::KILL:
+        // KILL WINDOW
         glfwSetWindowShouldClose(window, true);
         break;
-    case GLFW_KEY_SPACE:
+    case Acts::ADD:
+        // CREATES INSTANCE OF BALLS
         arr->push_back(Point(x_pos, y_pos, s, deg));
         break;
     default:
-        break;
     }
 }
 int main(int argc, char const *argv[])
@@ -62,8 +73,6 @@ int main(int argc, char const *argv[])
 
     glBindVertexArray(0);
 
-    constexpr float X_MAX = 1280.f;
-    constexpr float Y_MAX = 720.f;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
