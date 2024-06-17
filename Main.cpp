@@ -31,7 +31,7 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
         // CREATES INSTANCE OF BALLS
         arr->push_back(Point(x_pos, y_pos, s, deg));
         break;
-    default:
+    default:;
     }
 }
 int main(int argc, char const *argv[])
