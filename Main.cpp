@@ -1,7 +1,27 @@
 
 #include "Program.h"
 #include "Point.h"
+#include <vector>
+float x_pos = 0, y_pos = 0, s = 0, deg = 0;
+void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    std::vector<Point> *arr = (std::vector<Point> *)glfwGetWindowUserPointer(window);
+    switch (key)
+    {
+    case GLFW_KEY_ESCAPE:
+        // TODO: This is where we handle user inputs for balls
+        break;
+    case GLFW_KEY_ENTER:
 
+        glfwSetWindowShouldClose(window, true);
+        break;
+    case GLFW_KEY_SPACE:
+        arr->push_back(Point(x_pos, y_pos, s, deg));
+        break;
+    default:
+        break;
+    }
+}
 int main(int argc, char const *argv[])
 {
     /* code */
@@ -45,7 +65,7 @@ int main(int argc, char const *argv[])
     constexpr float X_MAX = 1280.f;
     constexpr float Y_MAX = 720.f;
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity(); 
+    glLoadIdentity();
     glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
     while (!glfwWindowShouldClose(window))
     {
