@@ -5,7 +5,7 @@
 // CLASS FOR LOADING SHADERS
 // gets uniform location
 
-ShaderClass::ShaderClass(std::string path, GLenum type)
+ShaderClass::ShaderClass(std::string path, GLenum type):shader(glCreateShader(type))
 {
 	// TODO:speed this up. maybe rewrite.
 	// TODO: Error Checking
@@ -21,7 +21,6 @@ ShaderClass::ShaderClass(std::string path, GLenum type)
 	std::string vertS = vertBuff.str();
 	const char* v = vertS.c_str();
 	// Compile shader
-	this->shader = glCreateShader(type);
 	glShaderSource(this->shader, 1, &v, NULL);
 	
 
