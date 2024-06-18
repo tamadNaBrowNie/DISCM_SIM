@@ -17,23 +17,30 @@ constexpr float Y_MAX = 720.f;
 void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     float x_pos = 0, y_pos = 0, s = 0, deg = 0;
-    // TODO: MUTEX THIS
+    
+        // TODO: MUTEX THIS
   /*std::vector<Point>* arr = (std::vector<Point> *)glfwGetWindowUserPointer(window);
-    switch (key)
-    {
-    case Acts::DATA:
-        // TODO: HANDLE BALL INPUT
-        break;
-    case Acts::KILL:
-        // KILL WINDOW
-        glfwSetWindowShouldClose(window, true);
-        break;
-    case Acts::ADD:
-        // CREATES INSTANCE OF BALLS
-        arr->push_back(Point(x_pos, y_pos, s, deg));
-        break;
-    default:;
-    }*/  
+  */
+        switch (key)
+        {
+        case Acts::DATA:
+
+            std::cout << "waitng?";
+            std::cin.get();
+            std::cout << "waitng";
+            // TODO: HANDLE BALL INPUT
+            break;
+        case Acts::KILL:
+            // KILL WINDOW
+            glfwSetWindowShouldClose(window, true);
+            break;
+        case Acts::ADD:
+            // CREATES INSTANCE OF BALLS
+            std::cout << "I was told not to make the joke";
+            break;
+        default:;
+        }
+    
 }
 int main(int argc, char const *argv[])
 {
@@ -52,14 +59,14 @@ int main(int argc, char const *argv[])
         std::cout << "glfw failed";
         return -1;
     }   
-    window = glfwCreateWindow(1280, 720, "DISCM SIM", NULL, NULL);
+    window = glfwCreateWindow(X_MAX, Y_MAX, "DISCM SIM", NULL, NULL);
     if (!window)
     {
         std::cout << "no window";
         glfwTerminate();
         return -1;
     }
-
+    glfwSetKeyCallback(window, Key_Callback);
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     
