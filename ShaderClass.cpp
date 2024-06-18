@@ -1,5 +1,6 @@
 
 #include "ShaderClass.h"
+
 #include <iostream>
 // CLASS FOR LOADING SHADERS
 // gets uniform location
@@ -18,11 +19,12 @@ ShaderClass::ShaderClass(std::string path, GLenum type)
 	std::stringstream vertBuff;
 	vertBuff << vertSrc.rdbuf();
 	std::string vertS = vertBuff.str();
-	const char *v = vertS.c_str();
-
+	const char* v = vertS.c_str();
 	// Compile shader
 	this->shader = glCreateShader(type);
 	glShaderSource(this->shader, 1, &v, NULL);
+	
+
 	glCompileShader(this->shader);
 	// Check for errors
 	 GLint success;
