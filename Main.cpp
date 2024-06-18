@@ -40,9 +40,9 @@ int main(int argc, char const *argv[])
     /* code */
     float vertices[] = {
         // positions
-        -0.5f, -0.5f,
-        0.5f, -0.5f, 
-        0.0f, 0.5f, 
+        -0.01f, -0.01f,
+        0.01f, -0.01f, 
+        0.0f, 0.01f, 
         0.f, 0.f};
     GLFWwindow *window = nullptr;
     GLenum init = glfwInit();
