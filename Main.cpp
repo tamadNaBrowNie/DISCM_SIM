@@ -92,10 +92,12 @@ int main(int argc, char const *argv[])
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
-
+    int width  =0, height =0;
 
     while (!glfwWindowShouldClose(window))
     {
+        glfwGetWindowSize(window,&width, &height);
+        glad_glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
         // glDrawArraysInstanced(GL); //TODO: try to make it instanced
         prog.use();
