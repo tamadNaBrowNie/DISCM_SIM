@@ -47,10 +47,8 @@ int main(int argc, char const *argv[])
     /* code */
     float vertices[] = {
         // positions
-        -0.5f, -0.5f,
-        0.5f, -0.5f, 
-        0.0f, 0.5f, 
-        0.f, 0.f};
+        0.f, 0.f
+        };
     GLFWwindow *window = nullptr;
     GLenum init = glfwInit();
 
@@ -94,7 +92,8 @@ int main(int argc, char const *argv[])
     glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
     int width  =0, height =0;
     //glCullFace(GL_BACK);
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_PROGRAM_POINT_SIZE);
+    glPointSize(5.f);
     while (!glfwWindowShouldClose(window))
     {
         glfwGetWindowSize(window,&width, &height);
@@ -103,7 +102,7 @@ int main(int argc, char const *argv[])
         // glDrawArraysInstanced(GL); //TODO: try to make it instanced
         prog.use();
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_POINTS, 0, 2);
         glfwSwapBuffers(window);
         
         glfwPollEvents();
