@@ -9,8 +9,7 @@
 #include <glad/glad.h>
 
 // Keybinds for actions
-enum Acts
-{
+enum Acts {
     KILL = GLFW_KEY_ENTER,
     DATA = GLFW_KEY_ESCAPE,
     ADD = GLFW_KEY_SPACE
@@ -23,11 +22,9 @@ constexpr float Y_MAX = 720.f;
 std::vector<Point> particles;
 std::mutex particlesMutex;
 
-void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mods)
-{
+void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if (action == GLFW_PRESS) {
-        switch (key)
-        {
+        switch (key) {
         case Acts::DATA:
             std::cout << "waiting?";
             std::cin.get();
@@ -37,7 +34,6 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
             glfwSetWindowShouldClose(window, true);
             break;
         case Acts::ADD:
-            // Add particles at a specific position with specific velocity and angle
             std::cout << "Adding particles\n";
             {
                 std::lock_guard<std::mutex> lock(particlesMutex);
@@ -64,27 +60,24 @@ void renderParticles() {
     for (const auto& particle : particles) {
         glm::vec3 pos = particle.get_pos();
         // Draw particle at pos.x, pos.y
-        // Implement your drawing logic here
+        glBegin(GL_POINTS);
+        glVertex2f(pos.x, pos.y);
+        glEnd();
     }
 }
 
-int main(int argc, char const *argv[])
-{
-    float vertices[] = {
-        0.f, 0.f
-    };
+int main(int argc, char const *argv[]) {
+    float vertices[] = { 0.f, 0.f };
 
     GLFWwindow *window = nullptr;
     GLenum init = glfwInit();
 
-    if (init == GLFW_FALSE)
-    {
+    if (init == GLFW_FALSE) {
         std::cout << "glfw failed";
         return -1;
     }
     window = glfwCreateWindow(X_MAX, Y_MAX, "DISCM SIM", NULL, NULL);
-    if (!window)
-    {
+    if (!window) {
         std::cout << "no window";
         glfwTerminate();
         return -1;
@@ -120,8 +113,7 @@ int main(int argc, char const *argv[])
     int frameCount = 0;
     float fps = 0.0f;
 
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)) {
         glfwGetWindowSize(window, &width, &height);
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -135,8 +127,7 @@ int main(int argc, char const *argv[])
         frameCount++;
         auto currentTime = std::chrono::high_resolution_clock::now();
         auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastFpsTime).count();
-        if (elapsedTime >= 500)
-        {
+        if (elapsedTime >= 500) {
             fps = frameCount / (elapsedTime / 1000.0f);
             frameCount = 0;
             lastFpsTime = currentTime;
