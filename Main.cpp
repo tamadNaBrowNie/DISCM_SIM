@@ -93,7 +93,8 @@ int main(int argc, char const *argv[])
     glLoadIdentity();
     glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
     int width  =0, height =0;
-
+    //glCullFace(GL_BACK);
+    //glEnable(GL_CULL_FACE);
     while (!glfwWindowShouldClose(window))
     {
         glfwGetWindowSize(window,&width, &height);
@@ -104,7 +105,7 @@ int main(int argc, char const *argv[])
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glfwSwapBuffers(window);
-        //glCullFace(GL_FRONT);
+        
         glfwPollEvents();
     }
     glDeleteVertexArrays(1, &VAO);
