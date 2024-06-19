@@ -89,11 +89,11 @@ int main(int argc, char const *argv[])
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
     glBindVertexArray(0);
-    //glMatrixMode(GL_PROJECTION);
-    //glLoadIdentity();
-    //glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
 
-    glViewport(0, 0, 1280, 720);
+
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
