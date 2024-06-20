@@ -441,6 +441,7 @@
     <ClInclude Include="include\glm\vec4.hpp" />
     <ClInclude Include="include\glm\vector_relational.hpp" />
     <ClInclude Include="include\khr\khrplatform.h" />
+    <ClInclude Include="Main.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="ShaderClass.h" />
