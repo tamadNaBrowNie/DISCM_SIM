@@ -10,9 +10,9 @@
 enum Acts
 {
     KILL =  GLFW_KEY_ESCAPE,
-    dPOS = GLFW_KEY_1,
-    dSPEED = GLFW_KEY_2,
-    dTHETA = GLFW_KEY_3
+    dPOS = GLFW_KEY_P,
+    dSPEED = GLFW_KEY_S,
+    dTHETA = GLFW_KEY_T
 };
 // Screen
 constexpr float X_MAX = 1280.f;
@@ -21,6 +21,7 @@ constexpr float Y_MAX = 720.f;
 void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     // TODO: MUTEX THIS
+    if (action != GLFW_RELEASE)return;
     std::vector<Point*>* arr = (std::vector<Point*> *)glfwGetWindowUserPointer(window);
 
     float x_pos = 0, y_pos = 0, s = 0, deg = 0;
@@ -40,6 +41,7 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
 
                 arr->push_back(new Point(x_pos, y_pos, s, deg));
                 *f += d;
+                
             }
 
             };
@@ -50,17 +52,15 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
             std::cin >> deg;
             std::cin >> start;
             std::cin >> end;
-     
-           
-            
+
             push(&s);
             break;
 
         case Acts::dTHETA:
+            std::cin >> s;
             std::cin >> start;
             std::cin >> end;
-            std::cin >> s;
-           
+            
             push(&deg);
             break;
         default: std::cerr << "HOW TF";
@@ -76,8 +76,14 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
         case Acts::dSPEED:
           
         case Acts::dTHETA:
+            
+            
             std::cout << "n = ";
-            std::async(hl, key,std::cin.get());
+            hl(key, std::cin.get());
+            
+            
+           
+            
             break;
            
         case Acts::KILL:
@@ -148,20 +154,23 @@ int main(int argc, char const *argv[])
     glfwSetWindowUserPointer(window, &arr);
     while (!glfwWindowShouldClose(window))
     {
-        new_tic = glfwGetTime() * 1000.f;
-        dt = new_tic - last_tic;
-        glfwGetWindowSize(window,&width, &height);
-        glad_glViewport(0, 0, width, height);
-        glClear(GL_COLOR_BUFFER_BIT);
-        // glDrawArraysInstanced(GL); //TODO: try to make it instanced
-        prog.use();
-        if (TIC <= dt)
-        {   
-            //PUT BOING HERE
-        }
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_POINTS, 0, 2);
-        glfwSwapBuffers(window);
+
+            new_tic = glfwGetTime() * 1000.f;
+            dt = new_tic - last_tic;
+            glfwGetWindowSize(window, &width, &height);
+            glad_glViewport(0, 0, width, height);
+            glClear(GL_COLOR_BUFFER_BIT);
+            // glDrawArraysInstanced(GL); //TODO: try to make it instanced
+            prog.use();
+            if (TIC <= dt)
+            {
+                //std::cout << "I AM FUCKING INVINCIBLE";
+                //PUT BOING HERE
+            }
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_POINTS, 0, 2);
+            glfwSwapBuffers(window);
+           
         
         glfwPollEvents();
     }
