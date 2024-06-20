@@ -1,5 +1,6 @@
 #include "Program.h"
 #include "Point.h"
+#include "TextRenderer.h"
 #include <vector>
 #include <iostream>
 #include <chrono>
@@ -7,6 +8,7 @@
 #include <mutex>
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 
 // Keybinds for actions
 enum Acts {
@@ -59,7 +61,6 @@ void renderParticles() {
     std::lock_guard<std::mutex> lock(particlesMutex);
     for (const auto& particle : particles) {
         glm::vec3 pos = particle.get_pos();
-        // Draw particle at pos.x, pos.y
         glBegin(GL_POINTS);
         glVertex2f(pos.x, pos.y);
         glEnd();
@@ -108,6 +109,10 @@ int main(int argc, char const *argv[]) {
     glEnable(GL_PROGRAM_POINT_SIZE);
     glPointSize(5.f);
 
+    // Initialize the text renderer and load a font
+    TextRenderer textRenderer(X_MAX, Y_MAX);
+    textRenderer.Load("path/to/font.ttf", 24); // Replace with the path to your font file
+
     auto lastTime = std::chrono::high_resolution_clock::now();
     auto lastFpsTime = std::chrono::high_resolution_clock::now();
     int frameCount = 0;
@@ -139,6 +144,9 @@ int main(int argc, char const *argv[]) {
 
         updateParticles(deltaTime);
         renderParticles();
+
+        // Display FPS counter
+        textRenderer.RenderText("FPS: " + std::to_string(fps), 10.0f, 10.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
     }
 
     glDeleteVertexArrays(1, &VAO);

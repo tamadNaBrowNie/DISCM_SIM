@@ -5,6 +5,7 @@ file(GLOB ROOT_TEXT ../*.txt)
 file(GLOB ROOT_MD ../*.md)
 file(GLOB ROOT_NAT ../util/glm.natvis)
 
+
 file(GLOB_RECURSE CORE_SOURCE ./detail/*.cpp)
 file(GLOB_RECURSE CORE_INLINE ./detail/*.inl)
 file(GLOB_RECURSE CORE_HEADER ./detail/*.hpp)
