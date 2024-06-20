@@ -5,7 +5,7 @@
 #include <iostream>
 #include <chrono>
 #include <future>
-
+#include "TextRenderer.h"
 // Keybinds for actions
 enum Acts
 {
@@ -24,15 +24,15 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
     if (action != GLFW_RELEASE)return;
     std::vector<Point*>* arr = (std::vector<Point*> *)glfwGetWindowUserPointer(window);
 
-    float x_pos = 0, y_pos = 0, s = 0, deg = 0;
 
-    auto hl = [&](int T, int n){
-        
+
+    auto hl = [&arr,key]( ){
+        float x_pos = 0, y_pos = 0, s = 0, deg = 0;
         float start = 0 ,end = 0;
-
+        int n = 1;
         
         auto push = [&](float* f) {
-
+            std::cout << "n = ";
             std::cin >> x_pos;
             std::cin >> y_pos;
             float d = (end - start) / (float)n;
@@ -45,14 +45,13 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
             }
 
             };
-        switch (T) {
+        switch (key) {
         case Acts::dPOS:
             break;
         case Acts::dSPEED:
             std::cin >> deg;
             std::cin >> start;
             std::cin >> end;
-
             push(&s);
             break;
 
@@ -78,8 +77,7 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
         case Acts::dTHETA:
             
             
-            std::cout << "n = ";
-            hl(key, std::cin.get());
+            //std::async(std::launch::async, hl);
             
             
            
@@ -122,7 +120,7 @@ int main(int argc, char const *argv[])
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     
-    Program prog = Program("vert.glsl", "frag.glsl");//TODO now create a vertex shader file
+    Program prog("vert.glsl", "frag.glsl");//TODO now create a vertex shader file
     
     GLuint VBO, VAO;
     glGenVertexArrays(1, &VAO);
@@ -148,31 +146,49 @@ int main(int argc, char const *argv[])
     glEnable(GL_PROGRAM_POINT_SIZE);
     glPointSize(10.f);
     constexpr double TIC = 16.6666666667;
-
-    double last_tic = glfwGetTime() * 1000.f, new_tic = glfwGetTime() * 1000.f,dt =0;
+    Program ctr("fps_v.glsl", "fps_frag.glsl");
+    TextRenderer textRenderer(X_MAX, Y_MAX);
+    textRenderer.Load("font/font.ttf", 24); // Replace with the path to your font file
+    
     std::vector<Point*> arr;
     glfwSetWindowUserPointer(window, &arr);
+    auto lastTime = std::chrono::high_resolution_clock::now();
+    auto lastFpsTime = std::chrono::high_resolution_clock::now();
+    int frameCount = 0;
+    float fps = 0.0f;
+    double last_tic = glfwGetTime() * 1000.f, new_tic = glfwGetTime() * 1000.f, dt = 0; 
     while (!glfwWindowShouldClose(window))
     {
 
-            new_tic = glfwGetTime() * 1000.f;
-            dt = new_tic - last_tic;
+            glfwPollEvents();
             glfwGetWindowSize(window, &width, &height);
             glad_glViewport(0, 0, width, height);
             glClear(GL_COLOR_BUFFER_BIT);
             // glDrawArraysInstanced(GL); //TODO: try to make it instanced
             prog.use();
+
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_POINTS, 0, 2);
+            new_tic = glfwGetTime() * 1000.f;
+            dt = new_tic - last_tic;
             if (TIC <= dt)
             {
+                last_tic = new_tic;
                 //std::cout << "I AM FUCKING INVINCIBLE";
                 //PUT BOING HERE
             }
-            glBindVertexArray(VAO);
-            glDrawArrays(GL_POINTS, 0, 2);
+            auto lastTime = std::chrono::high_resolution_clock::now();
+            auto lastFpsTime = std::chrono::high_resolution_clock::now();
+            int frameCount = 0;
+            float fps = 0.0f;
+            ctr.use();
+            textRenderer.RenderText("FPS: " + std::to_string(fps), 10.0f, 10.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+     
             glfwSwapBuffers(window);
+            
            
         
-        glfwPollEvents();
+        
     }
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
