@@ -1,12 +1,14 @@
 ﻿#ifndef TEXT_RENDERER_H
 #define TEXT_RENDERER_H
 
+
+#include <glad/glad.h> // Use GLAD instead of GLEW
+#include <GLFW/glfw3.h> // GLFW header
+#include <glm/glm.hpp>  // GLM header
+#include <ft2build.h>   // FreeType header
+#include FT_FREETYPE_H  
 #include <map>
 #include <string>
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 struct Character {
     GLuint TextureID; // ID handle of the glyph texture

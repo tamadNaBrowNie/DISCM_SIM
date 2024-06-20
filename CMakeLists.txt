@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(DISCM_SIM)
+project(MyProject)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -20,10 +20,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h")
 
 # Add executable
-add_executable(DISCM_SIM ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-add_library(glad src/glad.c)
-
-target_include_directories(glad PRIVATE include)
-
-target_link_libraries(DISCM_SIM glad OpenGL::GL glfw Freetype::Freetype)
+# Link libraries
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw Freetype::Freetype)

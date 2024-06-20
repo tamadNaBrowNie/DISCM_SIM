@@ -1,8 +1,10 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
-#include "ShaderClass.h"  
-#include <string>
+#include "ShaderClass.h"
+
 #include <GLFW/glfw3.h>
+#include <string>
+
 // Ensure this file is correctly defined and available
 // CLASS THAT RUNS SHADERS
 class Program {

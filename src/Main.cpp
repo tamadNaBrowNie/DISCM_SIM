@@ -50,10 +50,10 @@ void Key_Callback(GLFWwindow *window, int key, int scancode, int action, int mod
     }
 }
 
-void updateParticles(float deltaTime) {
+void updateParticles() {
     std::lock_guard<std::mutex> lock(particlesMutex);
     for (auto& particle : particles) {
-        particle.move(deltaTime);
+        particle.move();
     }
 }
 
@@ -139,10 +139,9 @@ int main(int argc, char const *argv[]) {
             std::cout << "FPS: " << fps << std::endl;
         }
 
-        float deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count() / 1000.0f;
         lastTime = currentTime;
 
-        updateParticles(deltaTime);
+        updateParticles();
         renderParticles();
 
         // Display FPS counter

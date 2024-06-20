@@ -59,4 +59,23 @@ void TextRenderer::Load(std::string font, GLuint fontSize) {
             face->glyph->bitmap.buffer
         );
         // Set texture options
-        glTexParameteri(GL_TEXTURE
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // Now store character for later use
+        Character character = {
+            texture,
+            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+            static_cast<GLuint>(face->glyph->advance.x)
+        };
+        Characters.insert(std::pair<GLchar, Character>(c, character));
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // Destroy FreeType once we're finished
+    FT_Done_Face(face);
+    FT_Done_FreeType(ft);
+}
