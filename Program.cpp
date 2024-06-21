@@ -31,6 +31,12 @@ void Program::use()
 {
     glUseProgram(this->prog);
 }
+ShaderClass Program::getFShad() {
+    return this->frag;
+}
+ShaderClass Program::getVShad() {
+    return this->vert;
+}
 unsigned int Program::getFrag()
 {
     return this->frag.getShader();
@@ -38,4 +44,7 @@ unsigned int Program::getFrag()
 unsigned int Program::getVert()
 {
     return this->vert.getShader();
+}
+unsigned int Program::getProg() {
+    return this->prog;
 }

@@ -22,12 +22,17 @@ public:
     
     // Method to use the shader program
     void use();
+
+    ShaderClass getFShad();
+
+    ShaderClass getVShad();
     
     // Getter for the fragment shader ID
     unsigned int getFrag();
     
     // Getter for the vertex shader ID
     unsigned int getVert();
+    unsigned int getProg();
 };
 
 #endif // PROGRAM_H

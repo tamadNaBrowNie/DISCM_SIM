@@ -5,7 +5,9 @@
 #include <iostream>
 #include <chrono>
 #include <future>
+#include <glm/gtc/matrix_transform.hpp>
 #include "TextRenderer.h"
+#include <glm/gtc/type_ptr.hpp>
 // Keybinds for actions
 enum Acts
 {
@@ -99,7 +101,8 @@ int main(int argc, char const *argv[])
     /* code */
     float vertices[] = {
         // positions
-        10.f, -10.f
+        0.f, 10.f, 
+    
         };
     GLFWwindow *window = nullptr;
     GLenum init = glfwInit();
@@ -131,24 +134,29 @@ int main(int argc, char const *argv[])
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
-    
+
     glEnableVertexAttribArray(0);
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
     glBindVertexArray(0);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0.0f, X_MAX, Y_MAX, 0.0f, 0.f, 1.f);
+   
     int width  =0, height =0;
     glEnable(GL_PROGRAM_POINT_SIZE);
     glPointSize(10.f);
     constexpr double TIC = 16.6666666667;
+
+    prog.use();
+    std::cout<<glGetUniformLocation(prog.getVert(),"v");
+    glm::mat4 proj = glm::ortho(0.f, X_MAX, 0.f, Y_MAX);
+    glm::mat4 cam = glm::lookAt(glm::vec3(X_MAX/2, Y_MAX / 2, 10), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
+    glUniformMatrix4fv(3, 1, false, (const float*)glm::value_ptr(proj));
+    glUniformMatrix4fv(4, 1, false, (const float*)glm::value_ptr(cam));
+    std::cout <<"v: "<< glGetUniformLocation(prog.getVert(), "v");
     Program ctr("fps_v.glsl", "fps_frag.glsl");
-    TextRenderer textRenderer(X_MAX, Y_MAX);
-    textRenderer.Load("font/font.ttf", 24); // Replace with the path to your font file
+    //TextRenderer textRenderer(X_MAX, Y_MAX);
+    //textRenderer.Load("font/font.ttf", 24); // Replace with the path to your font file
     
     std::vector<Point*> arr;
     glfwSetWindowUserPointer(window, &arr);
@@ -157,36 +165,66 @@ int main(int argc, char const *argv[])
     int frameCount = 0;
     float fps = 0.0f;
     double last_tic = glfwGetTime() * 1000.f, new_tic = glfwGetTime() * 1000.f, dt = 0; 
-    while (!glfwWindowShouldClose(window))
-    {
 
-            glfwPollEvents();
-            glfwGetWindowSize(window, &width, &height);
-            glad_glViewport(0, 0, width, height);
-            glClear(GL_COLOR_BUFFER_BIT);
+    glm::mat4 tran = glm::translate(glm::mat4(1.0f), glm::vec3(2, 2, 0));
+    float x = -0.1, y = -0.1;
+    
+    while (!glfwWindowShouldClose(window)){
+
+        glfwGetWindowSize(window, &width, &height);
+        glad_glViewport(0, 0, width, height);
+
+        glClear(GL_COLOR_BUFFER_BIT);
+        glfwPollEvents();
             // glDrawArraysInstanced(GL); //TODO: try to make it instanced
             prog.use();
-
-            glBindVertexArray(VAO);
-            glDrawArrays(GL_POINTS, 0, 2);
+        
             new_tic = glfwGetTime() * 1000.f;
             dt = new_tic - last_tic;
+            float i = 0.01;
+
+            glBindVertexArray(VAO);
+            glUniformMatrix4fv(2, 1, false, (const float*)glm::value_ptr(tran));
             if (TIC <= dt)
             {
                 last_tic = new_tic;
-                //std::cout << "I AM FUCKING INVINCIBLE";
+
+                
+                
+                tran *= glm::translate(glm::mat4(1.f), glm::vec3(x, y, 0.f));;
+                
+                std::cout << tran[3][1] << std::endl;
+                if (tran[3][1] < 0.f|| tran[3][1] >2.f ) {
+                    y = -y;
+                    
+                }
+                if (tran[3][0] < 0.f || tran[3][0] >2.f) {
+                    x = -x;
+
+                }
                 //PUT BOING HERE
             }
+
+            glDrawArrays(GL_POINTS, 0, 1);
+
+
+            
+
+           // glDrawArrays(GL_POINTS, 0, 1);
+     
+
+
             auto lastTime = std::chrono::high_resolution_clock::now();
             auto lastFpsTime = std::chrono::high_resolution_clock::now();
             int frameCount = 0;
             float fps = 0.0f;
-            ctr.use();
-            textRenderer.RenderText("FPS: " + std::to_string(fps), 10.0f, 10.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+           //ctr.use();
+          //  textRenderer.RenderText("FPS: " + std::to_string(fps), 10.0f, 10.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
      
             glfwSwapBuffers(window);
-            
-           
+   
+
+            glBindVertexArray(0);
         
         
     }
